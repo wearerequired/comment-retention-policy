@@ -6,6 +6,7 @@
 namespace Required\CommentRetentionPolicy;
 
 use WP_Comment_Query;
+use function Required\Traduttore_Registry\add_project as register_translation_project;
 
 const ACTIVATION_TRANSIENT_KEY        = 'comment-retention-policy-activated';
 const IP_RETENTION_OPTION             = 'comment_ips_retention';
@@ -19,6 +20,7 @@ const DELETE_CRON_ACTION              = 'process_retention_period_for_comment_ip
 function bootstrap() {
 	Shims\bootstrap();
 
+	add_action( 'init', __NAMESPACE__ . '\setup_translations' );
 	add_action( 'init', __NAMESPACE__ . '\register_settings' );
 	add_action( 'add_option_' . IP_RETENTION_OPTION, __NAMESPACE__ . '\update_schedule_delete_comment_ips', 10, 0 );
 	add_action( 'update_option_' . IP_RETENTION_OPTION, __NAMESPACE__ . '\update_schedule_delete_comment_ips', 10, 0 );
@@ -27,6 +29,17 @@ function bootstrap() {
 	add_action( DELETE_CRON_ACTION, __NAMESPACE__ . '\process_retention_period_for_comment_ips' );
 
 	Admin\bootstrap();
+}
+
+/**
+ * Setup translations via Traduttore.
+ */
+function setup_translations() {
+	register_translation_project(
+		'plugin',
+		'comment-retention-policy',
+		'https://translate.required.com/api/translations/required/comment-retention-policy/'
+	);
 }
 
 /**
