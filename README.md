@@ -1,6 +1,7 @@
-# Retention Period for Comment IPs
+# Retention Policy for Comments
 
-Allows to configure a retention period of IP addresses of commenters by specifying how old the comment should be before the IP is deleted.
+Allows to configure a retention period of IP addresses of commenters by specifying how old the comment should be before the IP is deleted.  
+In the future the plugin may be extended to support other comment fields like user agents or URLs.
 
 ## Installation
 
